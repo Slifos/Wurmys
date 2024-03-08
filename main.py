@@ -13,8 +13,8 @@ a = 0.1
 norme = [0]*2
 
 fenetre = pygame.display.set_mode((largeur_fenetre, hauteur_fenetre))
-fond = pygame.image.load("04.jpeg").convert()
-balle = pygame.image.load("white-circle-free-png.png").convert_alpha()
+fond = pygame.image.load("images\04.jpeg").convert()
+balle = pygame.image.load("images\white-circle-free-png.png").convert_alpha()
 balle = pygame.transform.scale(balle, [balle_largeur,balle_hauteur])
 position_balle = (balle.get_rect())
 
