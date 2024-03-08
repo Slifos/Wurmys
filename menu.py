@@ -13,11 +13,11 @@ principjeu    = 0
 nombrejoueurs = 0
 font= pygame.font.SysFont("LEMONMILK",40)
 
-bg= pygame.image.load("images\1440xAUTO_processed_article_2023_08_bb08a0a5-e781-424d-8e2c-a11a5242e558-banner-master.jpg").convert()
-bgoption = pygame.image.load("images\claude-monet-Impression-soleil-levant-1872-Musee-Marmottan-Monet-Paris-©-SLB-Christian-Baraja-1600x900.jpg").convert()
-bgjeu = pygame.image.load("images\John_Martin_Le_Pandemonium_Louvre.jpg").convert()
+bg= pygame.image.load("images/1440xAUTO_processed_article_2023_08_bb08a0a5-e781-424d-8e2c-a11a5242e558-banner-master.jpg").convert()
+bgoption = pygame.image.load("images/claude-monet-Impression-soleil-levant-1872-Musee-Marmottan-Monet-Paris-©-SLB-Christian-Baraja-1600x900.jpg").convert()
+bgjeu = pygame.image.load("images/John_Martin_Le_Pandemonium_Louvre.jpg").convert()
 bgjeu = pygame.transform.scale(bgjeu, [1270,780])
-boutonjouer = pygame.image.load("images\bouton jouer.png").convert_alpha()
+boutonjouer = pygame.image.load("images/bouton jouer.png").convert_alpha()
 boutonjouer = pygame.transform.scale(boutonjouer, [200,60])
 Text_color =(255,255,255)
 def draw_texte (texte,font,text_color,x,y):
