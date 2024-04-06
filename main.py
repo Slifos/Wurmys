@@ -3,7 +3,6 @@ from game import Game
 pygame.init()
 
 
-
 # Generer la fenêtre du jeu
 pygame.display.set_caption("Wurmys")
 screen = pygame.display.set_mode((1080, 720))
@@ -21,11 +20,14 @@ while running:
     #appliquer l'image du joueur
     screen.blit(game.player.image, game.player.rect)
 
-    #vérifier où le joueur veut alelr
+
+
+    #vérifier où le joueur veut aller
     if game.pressed.get(pygame.K_RIGHT) and game.player.rect.x + game.player.rect.width < screen.get_width():
         game.player.move_right()
     elif game.pressed.get(pygame.K_LEFT) and game.player.rect.x > 0:
         game.player.move_left()
+
 
     print(game.player.rect.x)
 
@@ -40,5 +42,6 @@ while running:
             print("Fermeture du jeu")
         elif event.type == pygame.KEYDOWN:
            game.pressed[event.key] = True
+
         elif event.type == pygame.KEYUP:
             game.pressed[event.key] = False
