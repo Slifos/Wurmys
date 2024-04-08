@@ -1,5 +1,5 @@
 import pygame
-from player import player
+from Player import player
 from Inventaire import Inventaire
 from Projetcile import *
 pygame.init()
