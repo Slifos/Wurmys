@@ -17,26 +17,31 @@ class Projectile(pygame.sprite.Sprite) :
         self.z_speed=z_speed
         self.id=id
         self.circle= ''
-        self.angle=3.141592/4
-    def get_angle(self,x,y):
-
-        angle=atan(y/x)
-        return angle 
+        self.speed=0
+        
+   
     def draw(self,screen):
 
         self.circle=pygame.draw.circle(screen,self.color,(self.x_pos,self.z_pos),self.radius)
+
+
+    def vitesse(self,x,y):
+        hauteur=abs(self.z_pos-y)
+        longueur=abs(self.x_pos-x)
+        vitesse=sqrt((hauteur)**2+(longueur)**2)
+        return hauteur,longueur,vitesse
     
-    def lancement(self,screen,seconde,pos_d):
-        sol=1700
+    def lancement(self,hauteur,longueur,seconde):
         
+                       
         
-
-        self.z_speed=-9.81*seconde+sin(3.141592/6)*220
-        self.z_pos=((-9.81/2)*(seconde**2)+(sin(3.14/4)*1000)*seconde+pos_d)*-1+1000
-        self.x_pos=(cos(3.14/4)*1000)*seconde+500
-        print("Z :" ,self.z_pos)
-        pygame.display.flip()
-
+        print("seconde: ",seconde,"\n")
+        self.z_speed=-941*seconde+1000
+        self.z_pos=((-941/2)*(seconde**2)+1000*seconde)*-1+1000
+        self.x_pos=700*seconde
+        print("Z :" ,self.z_pos,"\t Zspeed: ",self.z_speed)
+        print("X:",self.x_pos)
+        
 
 
 
