@@ -1,7 +1,8 @@
 import pygame
-from Player import player
+from player import player
 from Inventaire import Inventaire
 from Projetcile import *
+import time 
 pygame.init()
 font= pygame.font.SysFont("LEMONMILK",40)
 screen = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
@@ -58,22 +59,24 @@ while continuer:
                                 
                         x,y =pygame.mouse.get_pos()
                         ball.angle=ball.get_angle(x,y)
-                        print(x,y)
+                        print(x,y,"ohohoohohohoho")
                         buton_clicked=1                       
-                    while ball.z_pos<1700:
-                        print(seconde)
-                        print("45")               
-                        print("angle",ball.angle)  
+                        while ball.z_pos<1050:
+                            if seconde%5 ==0:
+                                continue
+                            ball.lancement(screen,seconde,pos_d)
+                            seconde=(pygame.time.get_ticks() - temps)
+                            seconde=seconde/1000
+                            ball.draw(screen)
 
-                        ball.lancement(screen,seconde,pos_d)
-                        seconde=(pygame.time.get_ticks() - temps) /1000
-                        pygame.display.flip()
-                       
+
+
+
 
                    
 
                 
-    #fpsClock.tick(60)
+    #fpsClock.tick(120)
     # ici on actualise l'écran, car on a affiché un rectangle rose, et on veut qu'il soit
     # visible. Si l'on avait pas mit cette instruction, on n'aurait jamais vu le rectangle !
     pygame.display.flip()

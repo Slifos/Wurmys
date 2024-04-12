@@ -31,11 +31,11 @@ class Projectile(pygame.sprite.Sprite) :
         
         
 
-        #self.z_speed=-9.81*seconde+sin(3.141592/6)*220
-        self.z_pos=((-9.81/2)*(seconde**2)+(sin(self.angle)*100)*seconde+pos_d)*-1+1000
-        self.x_pos=(cos(self.angle)*100)*seconde+500
-        self.draw(screen)
+        self.z_speed=-9.81*seconde+sin(3.141592/6)*220
+        self.z_pos=((-9.81/2)*(seconde**2)+(sin(3.14/4)*1000)*seconde+pos_d)*-1+1000
+        self.x_pos=(cos(3.14/4)*1000)*seconde+500
         print("Z :" ,self.z_pos)
+        pygame.display.flip()
 
 
 
