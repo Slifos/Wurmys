@@ -26,6 +26,10 @@ class Projectile(pygame.sprite.Sprite) :
     def vitesse(self,x,y):
         hauteur=abs(self.z_pos-y)
         longueur=abs(self.x_pos-x)
+        if x<self.x_pos:
+            longueur=-longueur
+
+        
         vitesse=sqrt((hauteur)**2+(longueur)**2)
         return hauteur,longueur,vitesse
     
