@@ -18,11 +18,14 @@ class Projectile(pygame.sprite.Sprite) :
         self.id=id
         self.circle= ''
         self.speed=0
-        
+        self.grenade=pygame.image.load('images/grenade.png')
+        self.grenade = pygame.transform.scale(self.grenade, [70,60])
+
    
     def draw(self,screen):
+        
 
-        self.circle=pygame.draw.circle(screen,self.color,(self.x_pos,self.z_pos),self.radius)
+        screen.blit(self.grenade,(self.x_pos,self.z_pos))
 
 
     def vitesse(self,x,y):
@@ -31,16 +34,15 @@ class Projectile(pygame.sprite.Sprite) :
         vitesse=sqrt((hauteur)**2+(longueur)**2)
         return hauteur,longueur,vitesse
     
-    def lancement(self,hauteur,longueur,seconde):
+    def lancement(self,hauteur,longueur,seconde,pos_dx,pos_dh):
         
                        
         
-        print("seconde: ",seconde,"\n")
-        self.z_speed=-941*seconde+1000
-        self.z_pos=((-941/2)*(seconde**2)+1000*seconde)*-1+1000
-        self.x_pos=700*seconde
-        print("Z :" ,self.z_pos,"\t Zspeed: ",self.z_speed)
-        print("X:",self.x_pos)
+        self.z_speed=-941*seconde+pos_dh
+        self.z_pos=((-941/2)*(seconde**2)+hauteur*seconde)*-1+pos_dh
+        self.x_pos=longueur*seconde+pos_dx
+        
+       
         
 
 
