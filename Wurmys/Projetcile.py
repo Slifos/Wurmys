@@ -5,18 +5,13 @@ from math import *
 
 
 class Projectile(pygame.sprite.Sprite) :
-    def __init__(self,x_pos,z_pos,radius,mass,retention,color,x_speed,z_speed,id):
+    def __init__(self,x_pos,z_pos,x_speed,z_speed,id):
         super().__init__()
         self.x_pos=x_pos
         self.z_pos=z_pos
-        self.radius=radius
-        self.color=color
-        self.mass=mass
-        self.retention=retention
         self.x_speed=x_speed
         self.z_speed=z_speed
         self.id=id
-        self.circle= ''
         self.speed=0
         self.grenade=pygame.image.load('images/grenade.png')
         self.grenade = pygame.transform.scale(self.grenade, [70,60])

@@ -17,7 +17,7 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.original_image, (100, 60))  # Redimensionner l'image
         self.rect = self.image.get_rect()
         self.rect.x = 100
-        self.rect.y = 470
+        self.rect.y = 800
 
 
 
