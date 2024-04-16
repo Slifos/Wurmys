@@ -59,10 +59,11 @@ while running:
 
         if event.type == pygame.KEYUP:
             game.pressed[event.key] = False
+        
         if event.type== pygame.KEYDOWN:
             if event.key==pygame.K_g:
-                inventair.inven(True, screen)
-            
+                game.player.arme=inventair.inven(True, screen)  #Renvoie l'arme choisit dans le menu 
+        
         if event.type== pygame.KEYDOWN:
             if event.key==pygame.K_z:
                 ball=Projectile(game.player.rect.x,game.player.rect.y,0,0,1)

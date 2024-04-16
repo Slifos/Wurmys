@@ -1,8 +1,10 @@
 import pygame
+from player import Player
 class Inventaire:
     def __init__(self) :
 # Initialisation de Pygame
         self.oui=1
+       
          
     def inven(self,boole,screen):
         
@@ -30,6 +32,15 @@ class Inventaire:
             inventory_y = 460
             # Boucle principale
             items_position={}
+            zone_click_pistolet=pygame.Rect(514,454,90,90)
+            zone_click_grenade=pygame.Rect(615,454,90,90)
+
+
+
+ 
+
+            
+            
             while boole:
                 screen.blit(inven,(500,400 ))
                 # Affichage des éléments de l'inventaire
@@ -44,4 +55,14 @@ class Inventaire:
                     if event.type== pygame.KEYDOWN:
                         if event.key==pygame.K_g:
                             boole=False
+                    if event.type==pygame.MOUSEBUTTONDOWN:     # Choisir l'arme dans l'inventaire
+                        
+                        x,y=pygame.mouse.get_pos()
+                        print(x,y)
+                        if zone_click_pistolet.collidepoint(event.pos):    
+                            arme="gun"
+                        if zone_click_grenade.collidepoint(event.pos):
+                            arme="grenade"
                 pygame.display.flip()
+            return arme
+
