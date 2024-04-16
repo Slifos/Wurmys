@@ -10,7 +10,7 @@ class Inventaire:
             
 
             inven = pygame.image.load('images/inventaire.png')
-            inven=pygame.transform.scale(inven,[900,720])
+            inven=pygame.transform.scale(inven,[600,500])
             #charger le jeu
 
 
@@ -23,11 +23,11 @@ class Inventaire:
                 "grenad":pygame.image.load("images/Grenade.png"),
                 # Ajoutez d'autres éléments ici
             }
-            inventory_items["gun"]=pygame.transform.scale(inventory_items["gun"],[240,120])
-            inventory_items["grenad"]=pygame.transform.scale(inventory_items["grenad"],[200,120])
+            inventory_items["gun"]=pygame.transform.scale(inventory_items["gun"],[150,120])
+            inventory_items["grenad"]=pygame.transform.scale(inventory_items["grenad"],[160,89])
             # Position de départ de l'inventaire
             inventory_x = 515
-            inventory_y = 500
+            inventory_y = 460
             # Boucle principale
             items_position={}
             while boole:
@@ -37,7 +37,7 @@ class Inventaire:
                 for item_name, item_image in inventory_items.items():
                     screen.blit(item_image, (x, y))
                     items_position[item_name]=x,y
-                    x+=125
+                    x+=65
                     y=y-10
                 for event in pygame.event.get():
                 
