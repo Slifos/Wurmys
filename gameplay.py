@@ -30,6 +30,8 @@ def gameplay():
 
         # appliquer l'image du joueur
         screen.blit(game.player.image, game.player.rect)
+        game.player.update_health_bar(screen)
+        pygame.display.flip()
 
         # vérifier où le joueur veut aller
         if game.pressed.get(pygame.K_RIGHT) and game.player.rect.x + game.player.rect.width < screen.get_width():
