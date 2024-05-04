@@ -19,6 +19,7 @@ def menu():
     w = info.current_w
     h = info.current_h
     screen = pygame.display.set_mode((w, h))
+    fps = pygame.time.Clock()
 
     w_button, h_button = w*0.2, h*0.2
     play_button = pygame.image.load("ui/play_button.png")
@@ -33,33 +34,33 @@ def menu():
     bg = pygame.transform.scale(bg, (w, h))
 
     title = pygame.image.load("ui/title.png")
-    title = pygame.transform.scale(title, (w * 0.35, h * 0.2))
+    w_title = 0.35*w
+    title = pygame.transform.scale(title, (w_title,w_title*0.31))
     title_x, title_y = w * 0.35, h * 0  # position du titre sur l'écran
 
     mode = 1
     play_music("sound/theme.mp3")
-    running = True
     pygame.mouse.set_visible(True)
-    while running:
+    while mode==1:
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 # Récupérer les coordonnées du clic
                 mouse_x, mouse_y = pygame.mouse.get_pos()
                 #click sur jouer -> lance le jeu
                 if mouse_x > play_x and mouse_x < play_x + w_button and mouse_y > play_y and mouse_y < play_y + h_button:
                     mode = 2
-                    running = False
+
                 # click sur exit -> Quitte le Jeu
                 if mouse_x > exit_x and mouse_x < exit_x + w_button and mouse_y > exit_y and mouse_y < exit_y + h_button:
                     mode = 0
-                    running = False
+
+
         screen.blit(bg, (0, 0))
+        screen.blit(title, (title_x, title_y))
         screen.blit(play_button,(play_x,play_y))
         screen.blit(exit_button,(exit_x,exit_y))
-        screen.blit(title, (title_x,title_y))
+
         pygame.display.flip()
+        fps.tick(60)
     return mode
 
-pygame.quit()
