@@ -16,6 +16,12 @@ w, h = pygame.display.Info().current_w,pygame.display.Info().current_h
 pygame.display.set_caption("Wurmys le jeu")
 screen = pygame.display.set_mode((w,h),pygame.RESIZABLE)
 
+game = Game()
+game.player.update_health_bar(screen)
+
+"""for player in game.player.players:
+    player.update_health_bar(screen)"""
+
 mode = 1 # défini le stade du jeu (quitter le jeu = 0, Menu = 1, Jeu = 2)
 while mode>0:
     if mode == 1:
