@@ -1,7 +1,5 @@
 import pygame
 
-
-
 #Representation du joueur
 
 class Player(pygame.sprite.Sprite):
@@ -19,12 +17,14 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = 100
         self.rect.y = 800
         self.credit=0
-        self.arme="" 
-
-
+        self.arme=""
 
     def move_right(self):
         self.rect.x += self.vitesse
 
     def move_left(self):
         self.rect.x -= self.vitesse
+
+    def update_health_bar(self, surface):
+        pygame.draw.rect(surface, (60, 63, 60), (self.rect.x + 30, self.rect.y - 20, self.max_health, 5), 7)
+        pygame.draw.rect(surface, (111, 210, 46), (self.rect.x + 30, self.rect.y - 20, self.health, 5), 7)
