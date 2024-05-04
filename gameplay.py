@@ -4,7 +4,7 @@ from Inventaire import Inventaire
 from Projetcile import *
 from son import *
 from player import Player
-
+from Pause import pause
 #Representation du jeu
 pygame.init()
 def gameplay():
@@ -18,7 +18,8 @@ def gameplay():
     mode = 2
     play_music("sound/game_theme.mp3")
     inventaire = Inventaire()
-    fpsClock = pygame.time.Clock()
+    fps= pygame.time.Clock()
+    fps.tick(60)
     sol = 800
 
     pygame.mouse.set_visible(1)
@@ -39,15 +40,11 @@ def gameplay():
         # mettre à jour l'écran
         pygame.display.flip()
 
-        # fermeture de la fenetre
+
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                jeu = 0
-                pygame.quit()
-                print("Fermeture du jeu")
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    mode = 0
+                    mode = pause(screen)
             if event.type == pygame.KEYDOWN:
                 game.pressed[event.key] = True
 
@@ -83,6 +80,8 @@ def gameplay():
                         seconde += 0.01
                         pygame.display.flip()
 
-        fpsClock.tick(220)
+        fps.tick(60)
         pygame.display.flip()
+    if mode == -1: #restart le jeu avec un appel réccursif
+        mode=gameplay()
     return mode
