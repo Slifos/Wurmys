@@ -19,7 +19,7 @@ while mode>0:
     if mode == 1:
         mode=menu()
     if mode == 2:
-        mode=gameplay()
+        mode=gameplay() 
 
 
 

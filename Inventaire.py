@@ -40,7 +40,7 @@ class Inventaire:
  
 
             
-            
+            arme=""
             while boole:
                 screen.blit(inven,(500,400 ))
                 # Affichage des éléments de l'inventaire
@@ -58,11 +58,12 @@ class Inventaire:
                     if event.type==pygame.MOUSEBUTTONDOWN:     # Choisir l'arme dans l'inventaire
                         
                         x,y=pygame.mouse.get_pos()
-                        print(x,y)
                         if zone_click_pistolet.collidepoint(event.pos):    
                             arme="gun"
                         if zone_click_grenade.collidepoint(event.pos):
                             arme="grenade"
+                            print("c'est bon")
+                        
                 pygame.display.flip()
             return arme
 

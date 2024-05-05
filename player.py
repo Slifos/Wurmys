@@ -28,7 +28,7 @@ class Player(pygame.sprite.Sprite):
 
         # génére l'image du ver avec des dimensions qui dépendent de l'écran
         self.w_worm = w * 0.035
-        self.spray = pygame.image.load("perso/worm_idle_A.png")
+        self.spray = pygame.image.load(self.idle)
         self.image = pygame.transform.scale(self.spray, (self.w_worm, self.w_worm * 1.85))#adapte la taille du ver à l'écran
         self.rect = self.image.get_rect() #dessine le ver
 
@@ -39,7 +39,7 @@ class Player(pygame.sprite.Sprite):
         self.falling= False
 
     def update(self):
-        """Permets de maj les vecteurs vitesses en fonction de si le joueurnouge ou non
+        """Permets de maj les vecteurs vitesses en fonction de si le joueur bouge ou non
         cela sert pour les trajectoires de saut"""
         if not self.falling:
 

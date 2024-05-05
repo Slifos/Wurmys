@@ -14,7 +14,7 @@ class Projectile(pygame.sprite.Sprite) :
         self.id=id
         self.speed=0
         self.grenade=pygame.image.load('images/grenade.png')
-        self.grenade = pygame.transform.scale(self.grenade, [70,60])
+        self.grenade = pygame.transform.scale(self.grenade, [90,80])
 
    
     def draw(self,screen):
@@ -31,7 +31,7 @@ class Projectile(pygame.sprite.Sprite) :
 
         
         vitesse=sqrt((hauteur)**2+(longueur)**2)
-        return hauteur,longueur,vitesse
+        return hauteur+10,longueur,vitesse
     
     def lancement(self,hauteur,longueur,seconde,pos_dx,pos_dh):
         
