@@ -1,5 +1,6 @@
 import pygame
-from game import Game
+from pygame.locals import *
+
 from Inventaire import Inventaire
 from Projetcile import *
 from son import *
@@ -14,76 +15,52 @@ def gameplay():
     background = pygame.image.load('bg/bg_game.jpg')
     background = pygame.transform.scale(background, (w,h))
     # charger le jeu
-    game = Game()
+    player1 = Player("A")
+    player1.update_setting(w,h)
+    K_player1 = {"left": pygame.K_q, "right": pygame.K_d, "up": pygame.K_z}
+
     mode = 2
     play_music("sound/game_theme.mp3")
     inventaire = Inventaire()
     fps= pygame.time.Clock()
-    fps.tick(60)
-    sol = 800
-
-    pygame.mouse.set_visible(1)
+    pygame.mouse.set_visible(False)
     while mode>=2:
+        player1.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE or event.key == pygame.K_BACKSPACE:
+                    mode = pause(screen)
         seconde = 0
+        keys = pygame.key.get_pressed()
+
+
 
         screen.blit(background, (0, 0))
-
-        # appliquer l'image du joueur
-        screen.blit(game.player.image, game.player.rect)
-        game.player.update_health_bar(screen)
-        pygame.display.flip()
+        if keys[K_player1["left"]]:
+            player1.move_left()
+        if keys[K_player1["right"]]:
+            player1.move_right()
+        if keys[K_player1["up"]]:
+            player1.do_jump()
+        player1.in_aire()
+        screen.blit(player1.image, (player1.rect_x,player1.rect_y) ) #(player1.rect_x,player1.rect_y)
 
         # vérifier où le joueur veut aller
-        if game.pressed.get(pygame.K_RIGHT) and game.player.rect.x + game.player.rect.width < screen.get_width():
-            game.player.move_right()
-        elif game.pressed.get(pygame.K_LEFT) and game.player.rect.x > 0:
-            game.player.move_left()
+
 
         # mettre à jour l'écran
         pygame.display.flip()
 
 
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    mode = pause(screen)
-            if event.type == pygame.KEYDOWN:
-                game.pressed[event.key] = True
 
-            if event.type == pygame.KEYUP:
-                game.pressed[event.key] = False
 
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_g:
-                    game.player.arme = inventaire.inven(True, screen)  # Renvoie l'arme choisit dans le menu
 
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_z:
-                    ball = Projectile(game.player.rect.x, game.player.rect.y, 0, 0, 1)
-                    pos_dx = ball.x_pos
-                    pos_dh = ball.z_pos
-                    buton_clicked = 0
-                    while buton_clicked == 0:
-                        for event2 in pygame.event.get():
-
-                            if event2.type == pygame.MOUSEBUTTONDOWN:
-                                x, y = pygame.mouse.get_pos()
-                                buton_clicked = 1
-                                hauteur, longueur, vitesse = ball.vitesse(x, y)
-
-                    while ball.z_pos < sol or seconde < 0.1:
-                        ball.lancement(hauteur, longueur, seconde, pos_dx, pos_dh)
-
-                        screen.blit(background, (0, 0))
-                        screen.blit(game.player.image, game.player.rect)
-
-                        ball.draw(screen)
-
-                        seconde += 0.01
-                        pygame.display.flip()
 
         fps.tick(60)
         pygame.display.flip()
     if mode == -1: #restart le jeu avec un appel réccursif
         mode=gameplay()
     return mode
+
