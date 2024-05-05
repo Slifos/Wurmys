@@ -84,4 +84,4 @@ class Player(pygame.sprite.Sprite):
         pygame.draw.line(screen, (150, 0, 0), (self.rect_x-self.w*0.02, self.rect_y-self.h*0.05),
                          (self.rect_x-self.w*0.02+self.w*0.08, self.rect_y - self.h*0.05), int(self.h*0.02))
         pygame.draw.line(screen, (0, 150, 0), (self.rect_x - self.w * 0.02, self.rect_y - self.h * 0.05),
-                         (self.rect_x-self.w*0.02 + self.w*0.08*(self.health/self.max_health)*0.01, self.rect_y - self.h * 0.05), int(self.h * 0.02))
+                         (self.rect_x-self.w*0.02 + self.w*0.08*(self.health/self.max_health), self.rect_y - self.h * 0.05), int(self.h * 0.02))
