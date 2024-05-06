@@ -48,12 +48,13 @@ def menu():
                 mouse_x, mouse_y = pygame.mouse.get_pos()
                 #click sur jouer -> lance le jeu
                 if mouse_x > play_x and mouse_x < play_x + w_button and mouse_y > play_y and mouse_y < play_y + h_button:
+                    play_sound("sound/pressed.mp3")
                     mode = 2
 
                 # click sur exit -> Quitte le Jeu
                 if mouse_x > exit_x and mouse_x < exit_x + w_button and mouse_y > exit_y and mouse_y < exit_y + h_button:
                     mode = 0
-
+                    play_sound("sound/exit.mp3")
 
         screen.blit(bg, (0, 0))
         screen.blit(title, (title_x, title_y))
