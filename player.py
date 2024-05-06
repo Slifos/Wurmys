@@ -17,6 +17,7 @@ class Player(pygame.sprite.Sprite):
         self.isjumping = False
         self.rect_x = w * 0.1
         self.rect_y = h * 0.72
+        self.pos=0
         if skin == "A":
             self.idle = "perso/worm_idle_A.png"
             self.walk = "perso/worm_walking_A.png"
@@ -31,7 +32,7 @@ class Player(pygame.sprite.Sprite):
         self.spray = pygame.image.load(self.idle)
         self.image = pygame.transform.scale(self.spray, (self.w_worm, self.w_worm * 1.85))#adapte la taille du ver à l'écran
         self.rect = self.image.get_rect() #dessine le ver
-
+      
         self.g = h * 0.0025 #calcule la gravité en fonction de la hauteur de l'écran
         self.vitesse = w * 0.003 #calcule la vitesse gauche droite en fonction de la taille de l'écran
         self.floor = h * 0.72 #ordonnée ou se situe le sol

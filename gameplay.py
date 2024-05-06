@@ -39,9 +39,19 @@ def gameplay():
         keys = pygame.key.get_pressed()
         if keys[K_player1["left"]]:#détecte si il va à gauche
             player1.move_left()
+            if player1.pos==0:
+                player1.image=pygame.transform.flip(player1.image,True,False)
+                player1.pos=1
+
+                
             
         if keys[K_player1["right"]]:#détecte si il va à droite
             player1.move_right()
+            if player1.pos==1:
+                player1.image=pygame.transform.flip(player1.image,True,False)
+                player1.pos=0
+
+        
         if keys[K_player1["up"]]:#détecte le jump
             player1.do_jump()
         player1.in_aire()
@@ -62,9 +72,10 @@ def gameplay():
             if event.type == pygame.KEYDOWN:
                 if event.key==pygame.K_g:
                     player1.arme=inventaire.inven(True, screen)
-                    player1.idle="perso/worm_idle_A_"+player1.arme+".png"  #Renvoie l'arme choisit dans le menu 
-                    player1.update_setting(w,h)
-                    screen.blit(player1.image, (player1.rect_x, player1.rect_y))                        
+                    if not(player1.arme ==""):
+                        player1.idle="perso/worm_idle_A_"+player1.arme+".png"  #Renvoie l'arme choisit dans le menu 
+                        player1.update_setting(w,h)
+                        screen.blit(player1.image, (player1.rect_x, player1.rect_y))                        
 
                 if event.key == pygame.K_ESCAPE or event.key == pygame.K_BACKSPACE:
                     mode = pause(screen)
