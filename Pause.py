@@ -60,12 +60,15 @@ def pause(screen):
                 #click sur jouer -> lance le jeu
                 if mouse_x > resume_x and mouse_x < resume_x + w_button and mouse_y > resume_y and mouse_y < resume_y + h_button:
                     mode = 2
+
                 # click sur restart -> relance le jeu
                 if mouse_x > restart_x and mouse_x < restart_x + w_button and mouse_y > restart_y and mouse_y < restart_y + h_button:
                     mode = -1
+                    play_sound("sound/pressed.mp3")
                 # click sur exit -> retourne à l'écran titre
                 if mouse_x > exit_x and mouse_x < exit_x + w_button and mouse_y > exit_y and mouse_y < exit_y + h_button:
                     mode = 1
+                    play_sound("sound/exit.mp3")
 
 
 
