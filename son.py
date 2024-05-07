@@ -1,5 +1,5 @@
 import pygame
-from player import Player
+
 
 #Representation du jeu
 def play_music(file_path):
