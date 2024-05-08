@@ -15,9 +15,14 @@ class Player(pygame.sprite.Sprite):
         self.max_health = 100
         if skin == "A":
             self.idle = "perso/worm_idle_A.png"
-            self.walk = "perso/worm_walking_A.png"
+            self.death = "perso/worm_walking_A.png"
             self.jump = "perso/worm_jump_A.png"
             self.jumping = "perso/worm_jumping_A.png"
+        if skin == "B":
+            self.idle = "perso/worm_idle_B.png"
+            self.death = "perso/worm_walking_B.png"
+            self.jump = "perso/worm_jump_B.png"
+            self.jumping = "perso/worm_jumping_B.png"
 
         self.sensi = 0.14
         self.attacking = False
@@ -25,25 +30,31 @@ class Player(pygame.sprite.Sprite):
         self.w_worm = self.w * 0.035
         self.spray = pygame.image.load(self.idle)
         self.image_worm = pygame.transform.scale(self.spray, (self.w_worm, self.w_worm * 1.85))
+
+        self.hit=0
         self.rect = self.image_worm.get_rect()
         self.rect.x = position[0]
         self.rect.y = position[1]
-
+        self.cd_attacking = 0
         self.viser = 0
+        self.viser_x = 0
+        self.viser_y = 0
         self.epee_image = "objet/epee2.png"
         self.degat_epee = 30
         self.w_epee = self.w*0.05
         self.ratio_epee = (self.w_epee, self.w_epee)
         self.g = self.h * 0.0025  # calcule la gravité en fonction de la hauteur de l'écran
-        self.vitesse = self.w * 0.003  # calcule la vitesse gauche droite en fonction de la taille de l'écran
+        self.vitesse = self.w * 0.0035  # calcule la vitesse gauche droite en fonction de la taille de l'écran
         self.floor = self.h * 0.72  # ordonnée ou se situe le sol
         self.w_worm = self.w * 0.035
         self.spray = pygame.image.load(self.idle)
         self.image_worm = pygame.transform.scale(self.spray,
                                                  (self.w_worm, self.w_worm * 1.85))  # adapte la taille du ver à l'écran
+        if position[0]>self.w*0.5:
+            self.image_worm = pygame.transform.flip(self.image_worm,True,False)
         self.falling = False
 
-    def arme_init(self):
+
 
 
 
@@ -53,6 +64,7 @@ class Player(pygame.sprite.Sprite):
             self.rect.x += self.vitesse
             self.vitesse_x = self.vitesse/2.5
             self.sens = 1#sert pour le saut
+            self.rect.y = self.rect.y + self.h * 0.001 * sin(self.rect.x)
         self.image_worm = pygame.image.load(self.idle)
         self.image_worm = pygame.transform.scale(self.image_worm,
                                                  (self.w_worm, self.w_worm * 1.85))
@@ -61,6 +73,8 @@ class Player(pygame.sprite.Sprite):
             self.rect.x -= self.vitesse
             self.vitesse_x = -self.vitesse/3.5
             self.sens =-1#sert au saut
+            self.rect.y = self.rect.y-self.h*0.001*sin(self.rect.x+7)
+
         self.image_worm = pygame.image.load(self.idle)
         self.image_worm = pygame.transform.scale(self.image_worm,
                                                  (self.w_worm, self.w_worm * 1.85))
@@ -75,6 +89,20 @@ class Player(pygame.sprite.Sprite):
         self.health -=damage
         if self.health<=0:
             self.health = 0
+            self.ratio_death = self.w * 0.035, self.w * 0.035 * 0.46
+            self.image_worm = pygame.image.load(self.death)
+            self.image_worm = pygame.transform.scale(self.image_worm, self.ratio_death)
+            play_sound("sound/death.mp3")
+            play_sound("sound/victory_effect.mp3")
+        else:
+            if self.hit%3==0:
+
+                play_sound("sound/get_hit.mp3")
+            elif self.hit%3==1:
+                play_sound("sound/get_hit2.mp3")
+            else:
+                play_sound("sound/get_hit3.mp3")
+            self.hit+=1
     def attack(self, T_joueur):
         """récupère l'endroit viser par l'arme le joueur qui attaque
         et un tableau des joueurs et leur coordonnées pour voir si ils recoivent les damages"""
@@ -100,10 +128,7 @@ class Player(pygame.sprite.Sprite):
                         hit =1
             if hit == 0:
                 play_sound("sound/slash.mp3")
-        if self.cd_attacking<1.5:#temps limite avant de pouvoir reattaquer
-            self.cd_attacking+=0.1
-        else:
-            self.attacking = False
+
 
     def do_jump(self):
         """Action de sauté en fonction des inputs de vitesses (gauche, droite)"""
@@ -121,6 +146,10 @@ class Player(pygame.sprite.Sprite):
 
 
     """============================================Mise à jour constante du jeu ================================================================================================="""
+    def is_alive(self):
+        if self.health>0:
+            return True
+        return False
     def update(self):
         """Permets de maj les vecteurs vitesses en fonction de si le joueur bouge ou non
         cela sert pour les trajectoires de saut"""
@@ -128,9 +157,14 @@ class Player(pygame.sprite.Sprite):
         self.rayon = self.w * 0.044
         self.viser_x = self.rect.x + self.w_worm / 2 + cos(self.viser) * self.rayon
         self.viser_y = self.rect.y + self.w_worm * 1.85 / 2 + sin(self.viser) * self.rayon
+
         if not self.falling:
             self.vitesse_x = 0
             self.vitesse_y = 0
+        if self.cd_attacking<7:#temps limite avant de pouvoir reattaquer
+            self.cd_attacking+=0.1
+        else:
+            self.attacking = False
     def in_aire(self):
         """Fonction qui détecte se qu il se passe en état de chute
         cette fonction est lié au saut"""
