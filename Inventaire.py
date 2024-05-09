@@ -62,7 +62,7 @@ class Inventaire:
                             arme="gun"
                         if zone_click_grenade.collidepoint(event.pos):
                             arme="grenade"
-                            print("c'est bon")
+
                         
                 pygame.display.flip()
             return arme

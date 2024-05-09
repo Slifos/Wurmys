@@ -5,6 +5,7 @@ from Inventaire import Inventaire
 from Projetcile import *
 from son import *
 from player import Player
+from Platform import platform
 from Pause import pause
 #Representation du jeu
 pygame.init()
@@ -79,7 +80,7 @@ def victory_screen(victory_player):
         pygame.display.flip()
         fps.tick(60)
     return mode
-def decompte(joueur1,joueur2,bg):
+def decompte(joueur1,joueur2,bg,T_platform):
     w, h = pygame.display.Info().current_w, pygame.display.Info().current_h
     screen = pygame.display.set_mode((w, h), pygame.RESIZABLE)
     ratio_chiffre = w*0.2,w*0.2*1.22
@@ -98,8 +99,11 @@ def decompte(joueur1,joueur2,bg):
     while i<400:
         i+=2
         screen.blit(bg, (0, 0))
+        for j in range(len(T_platform)-1):
+            T_platform[j+1].affichage_platform()
         joueur1.affichage_final()
         joueur2.affichage_final()
+
         if i>301:
             screen.blit(start,(w*0.2,h*0.35))
             if tick==3:
@@ -134,9 +138,9 @@ def gameplay():
     background = pygame.image.load('bg/bg_game.jpg')
     # initialise le fond en fonction des dimensions de l'écran (16:9 de préférence)
     background = pygame.transform.scale(background, (w,h))
-    play_music("sound/game_theme.mp3")
+    play_music("sound/game_theme2.mp3")
 
-    set_touche1 = {"left": pygame.K_q, "right": pygame.K_d, "up": pygame.K_z, "aim_l":pygame.K_f, "aim_r":K_g,"atk":K_SPACE}
+    set_touche1 = {"left": pygame.K_q, "right": pygame.K_d, "up": pygame.K_z,"down":pygame.K_s, "aim_l":pygame.K_f, "aim_r":K_g,"atk":K_SPACE,"switch":pygame.K_e}
     set_touche2 = {"left": pygame.K_LEFT, "right": pygame.K_RIGHT, "up": pygame.K_UP,"aim_l":pygame.K_KP1, "aim_r":pygame.K_KP2,"atk":pygame.K_KP0}
     set_position = [(w * 0.1,h * 0.72),(w * 0.89,h * 0.72)]
 
@@ -159,7 +163,12 @@ def gameplay():
     pygame.mouse.set_visible(False)
     victory = False
     while mode>=2:
-
+        platform1=platform(w*0.3,(w*0.35,h*0.55))
+        platform2 = platform(w*0.3,(w*0.02,h*0.28))
+        platform3 = platform(w * 0.3, (w * 0.68, h * 0.28))
+        floor = platform(w,(0,h*0.8))
+        floor.affichage_platform()
+        T_platform = [floor,platform1,platform2,platform3]
         if vie_joueur1<=0:
             victory=True
             joueur_victory = player2
@@ -173,15 +182,16 @@ def gameplay():
         T_vie = [vie_joueur1,vie_joueur2]
         if not victory:
             manche=True
-            decompte(player1, player2, background)
+            decompte(player1, player2, background,T_platform)
         else:
             manche=False
             mode=victory_screen(joueur_victory)
         after_match = 0
+
         while manche==True and mode>=2:
 
-            player1.update()
-            player2.update()
+            player1.update(T_joueur)
+            player2.update(T_joueur)
             screen.blit(background, (0, 0))
             update_hud(T_vie)
             keys = pygame.key.get_pressed()
@@ -196,6 +206,9 @@ def gameplay():
                 after_match+=1
             if after_match>400:
                 manche = False
+            platform1.affichage_platform()
+            platform2.affichage_platform()
+            platform3.affichage_platform()
 
             player1.affichage_final()
             player2.affichage_final()
@@ -207,14 +220,18 @@ def gameplay():
                     player1.move_right()
                 if keys[K_player1["up"]]:#détecte le jump
                     player1.do_jump()
+                if keys[K_player1["down"]]:
+                    player1.go_down()
                 player1.in_aire()
-                player1.collision()
+                player1.collision(T_platform)
                 if keys[K_player1["aim_l"]]:
                     player1.aim_left()
                 if keys[K_player1["aim_r"]]:
                     player1.aim_right()
                 if keys[K_player1["atk"]]:
                     player1.attack(T_joueur)
+                if keys[K_player1["switch"]]:
+                    player1.arme_switch()
             if player2.is_alive():
                 if keys[K_player2["left"]]:#détecte si il va à gauche
                     player2.move_left()
@@ -223,7 +240,7 @@ def gameplay():
                 if keys[K_player2["up"]]:#détecte le jump
                     player2.do_jump()
                 player2.in_aire()
-                player2.collision()
+                player2.collision(T_platform)
                 if keys[K_player2["aim_l"]]:
                     player2.aim_left()
                 if keys[K_player2["aim_r"]]:
