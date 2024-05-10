@@ -1,10 +1,11 @@
 import pygame
-from Inventaire import Inventaire
-from Projetcile import *
+
+
 from menu import menu
 from gameplay import gameplay
+from option import Option
 from pygame.locals import*
-from son import play_music, play_sound
+
 import sys
 
 
@@ -17,11 +18,15 @@ logo = pygame.image.load('ui/logo.png')
 pygame.display.set_icon(logo)
 screen = pygame.display.set_mode((w,h),pygame.RESIZABLE)
 mode = 1 # défini le stade du jeu (quitter le jeu = 0, Menu = 1, Jeu = 2)
+option = Option()
 while mode>0:
     if mode == 1:
-        mode=menu()
+
+        mode=menu(option)
+
     if mode == 2:
-        mode=gameplay() 
+        mode=gameplay(option)
+
 
 
 
