@@ -11,7 +11,7 @@ pygame.init()
 
 
 
-
+"""Affichage du menu principal du jeu"""
 
 # Fonction pour afficher un menu
 def menu(option):
@@ -24,13 +24,13 @@ def menu(option):
     bg = pygame.image.load("bg/bg_menu.png")
     bg = pygame.transform.scale(bg, (w, h))
 
-    play_button = Image("ui/play_button.png",w*0.2,(w*0.4,h*0.3))
-    exit_button = Image("ui/exit_button.png", w * 0.2, (w * 0.4, h * 0.7))
+    play_button = Image("ui/play_button.png",w*0.2,(w*0.4,h*0.35))
+    exit_button = Image("ui/exit_button.png", w * 0.2, (w * 0.4, h * 0.6))
     title = Image("ui/title.png",w*0.35,(w * 0.35, h * 0))
 
 
     mode = 1
-    play_music("sound/theme.mp3",0.5,option.volume)
+
     pygame.mouse.set_visible(True)
     screen.blit(bg, (0, 0))
     screen.blit(title.image, (title.rect))
@@ -44,17 +44,16 @@ def menu(option):
                 mouse_pos = pygame.mouse.get_pos()
                 #click sur jouer -> lance le jeu
                 if play_button.rect.collidepoint(mouse_pos):
-                    play_sound("sound/pressed.mp3",0.5,option.volume)
-                    mode = 2
+                    play_sound("sound/pressed.mp3",option)
+                    mode = 10
+
 
                 # click sur exit -> Quitte le Jeu
                 if exit_button.rect.collidepoint(mouse_pos):
                     mode = 0
-                    play_sound("sound/exit.mp3",0.5,option.volume)
-
-
-
+                    play_sound("sound/exit.mp3",option)
         pygame.display.flip()
+
         fps.tick(60)
     return mode
 
