@@ -1,67 +1,98 @@
-import pygame
+            l = Image_h("alpha/6.png",espace,(0,0))
+        elif letter == "7":
+            l = Image_h("alpha/7.png",espace,(0,0))
+        elif letter == "8":
+            l = Image_h("alpha/8.png",espace,(0,0))
+        elif letter == "9":
+            l = Image_h("alpha/9.png",espace,(0,0))
+        surface.blit(l.image,(espace/1.7*i,0))
+        #pygame.image.save(surface, "mot.png")
 
-"""Fonctions liées à la simplification de l'outil pygame"""
+        i+=1
+    return surface
+"""utile dans le futur"""
+def input():
+    taping = False
+    while taping==False:
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                running = False
 
-class Image:
-    def __init__(self,path,ratio,position):
-        pygame.init()
+                return event.key
 
-        super().__init__()
-        self.image = pygame.image.load(path)
-
-
-        w=self.image.get_width()*ratio
-        l = self.image.get_height()*ratio
-        self.ratio_image =l/w
-        self.dimension = (ratio,ratio*self.ratio_image)
-
-        self.image = pygame.transform.scale(self.image,self.dimension)
-
-        self.rect = self.image.get_rect()
-        self.dim_x,self.dim_y = self.image.get_width(),self.image.get_height()
-        self.rect.x = position[0]
-        self.rect.y = position[1]
-
-
-
-    def switch_image(self,path, ratio):
-        self.image = pygame.image.load(path)
-        w = self.image.get_width() * ratio
-        l = self.image.get_height() * ratio
-        self.ratio_image = l / w
-        self.dimension = (ratio, ratio * self.ratio_image)
-        self.image = pygame.transform.scale(self.image, self.dimension)
-    def get_center(self):
-        self.center_x, self.center_y = self.rect.x + self.dim_x / 2, self.rect.y + self.dim_y / 2
-        return self.center_x,self.center_y
-    def go_center(self,center_x,center_y):
-        self.center_x = center_x
-        self.center_y = center_y
-        self.rect.x,self.rect.y=self.center_x-self.dim_x/2,self.center_y-self.dim_y/2
-    def flip(self):
-        self.image = pygame.transform.flip(self.image,True,False)
-
-
-
-
-
-def couldown(max,seconde,fin):
-    """Permet de définir un temps d'attente en fonction du
-    nb de seconde max, des seconde actuel et de si l'attente est fini"""
-    if not fin:
-        seconde+=1
-    return max,seconde,seconde>=max
-
-def play_music(file_path,volume,option):
-    pygame.mixer.init()
-    pygame.mixer.music.stop()
-    pygame.mixer.music.load(file_path)
-    pygame.mixer.music.set_volume(volume*option)
-    pygame.mixer.music.play(-1)
-
-def play_sound(file_path,volume,option):
-    pygame.mixer.init()
-    sound = pygame.mixer.Sound(file_path)
-    sound.set_volume(volume*option)
-    sound.play()
+def interpretation(input):
+    if input == pygame.K_a:
+        return "a"
+    elif input == pygame.K_b:
+        return "b"
+    elif input == pygame.K_c:
+        return "c"
+    elif input == pygame.K_d:
+        return "d"
+    elif input == pygame.K_e:
+        return "e"
+    elif input == pygame.K_f:
+        return "f"
+    elif input == pygame.K_g:
+        return "g"
+    elif input == pygame.K_h:
+        return "h"
+    elif input == pygame.K_i:
+        return "i"
+    elif input == pygame.K_j:
+        return "j"
+    elif input == pygame.K_k:
+        return "k"
+    elif input == pygame.K_l:
+        return "l"
+    elif input == pygame.K_m:
+        return "m"
+    elif input == pygame.K_n:
+        return "n"
+    elif input == pygame.K_o:
+        return "o"
+    elif input == pygame.K_p:
+        return "p"
+    elif input == pygame.K_q:
+        return "q"
+    elif input == pygame.K_r:
+        return "r"
+    elif input == pygame.K_s:
+        return "s"
+    elif input == pygame.K_t:
+        return "t"
+    elif input == pygame.K_u:
+        return "u"
+    elif input == pygame.K_v:
+        return "v"
+    elif input == pygame.K_w:
+        return "w"
+    elif input == pygame.K_x:
+        return "x"
+    elif input == pygame.K_y:
+        return "y"
+    elif input == pygame.K_z:
+        return "z"
+    elif input == pygame.K_KP0:
+        return "0"
+    elif input == pygame.K_KP1:
+        return "1"
+    elif input == pygame.K_KP2:
+        return "2"
+    elif input == pygame.K_KP3:
+        return "3"
+    elif input == pygame.K_KP4:
+        return "4"
+    elif input == pygame.K_KP5:
+        return "5"
+    elif input == pygame.K_KP6:
+        return "6"
+    elif input == pygame.K_KP7:
+        return "7"
+    elif input == pygame.K_KP8:
+        return "8"
+    elif input == pygame.K_KP9:
+        return "9"
+    else:
+        return ""
 
