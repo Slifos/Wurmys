@@ -11,8 +11,8 @@ from fonction import*
 
 
 
+"""afficahge de l'écran pause en jeu"""
 
-# Fonction pour afficher un menu
 def pause(option):
     screen = pygame.display.get_surface()
     info = pygame.display.Info()
@@ -60,11 +60,11 @@ def pause(option):
                 # click sur restart -> relance le jeu
                 if restart.rect.collidepoint(mouse_pos):
                     mode = -1
-                    play_sound("sound/pressed.mp3",0.5,option.volume)
+                    play_sound("sound/pressed.mp3",option)
                 # click sur exit -> retourne à l'écran titre
                 if exit.rect.collidepoint(mouse_pos):
                     mode = 1
-                    play_sound("sound/exit.mp3",0.5,option.volume)
+                    play_sound("sound/exit.mp3",option)
 
 
 
