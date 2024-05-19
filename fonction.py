@@ -172,12 +172,4 @@ def writting(word,espace):
 
         i+=1
     return surface
-"""utile dans le futur"""
-def input():
-    taping = False
-    while taping==False:
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                running = False
 
-                return event.key
