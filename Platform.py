@@ -9,4 +9,4 @@ class platform:
         self.platform_rect = self.platform.get_rect()
         self.platform_rect.x,self.platform_rect.y = position[0],position[1]
     def affichage_platform(self):
-        self.screen.blit(self.platform, self.p
+        self.screen.blit(self.platform, self.p)
