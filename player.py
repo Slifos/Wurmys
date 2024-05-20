@@ -330,7 +330,7 @@ class Player(pygame.sprite.Sprite):
         """calcule si le joueur respecte bien les collision entre les platforms, le sol et les cotés
                 sinon sa position ne change pas"""
         for platform in self.T_platform:
-            if self.worm.rect.colliderect(platform.platform_rect) and self.worm.rect.bottom >= platform.platform_rect.top and self.worm.rect.bottom < platform.platform_rect.top * self.h * 0.00106:  # and self.worm.rect.top<platform.platform_rect.bottom:
+            if self.worm.rect.colliderect(platform.platform_rect) and self.worm.rect.bottom >= platform.platform_rect.top and self.worm.rect.bottom < platform.platform_rect.top * self.h * 0.00136:  # and self.worm.rect.top<platform.platform_rect.bottom:
                 self.falling = False
                 break
             else:
